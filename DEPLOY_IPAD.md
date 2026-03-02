@@ -89,7 +89,7 @@ The Docker image is **already built & tested**. Here are your options:
 > }
 > EOF
 > ```
-> Those files are already included below, so you can skip this step if you're cloning the repo.  If you've already created the Repl once, **stop it and hit the "Run" button again** (or reload the page) so Replit notices the new `.replit`/`replit.nix` and rebuilds the environment.
+> Those files are already included below, so you can skip this step if you're cloning the repo.
 
 If you want to test locally first:
 

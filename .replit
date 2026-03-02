@@ -1,5 +1,2 @@
-# use the Nix environment defined in `replit.nix` so that
-# Rust and Python are installed automatically.  When the repl
-# starts it will evaluate `replit.nix` and make `cargo` available.
 run = "bash -lc \"cargo build --release && python server.py\""
-language = "nix"
+language = "bash"
