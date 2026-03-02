@@ -5,10 +5,10 @@ Quick deploy (Docker + Fly.io or Replit)
 ```bash
 # from repo root
 docker build -t trig_verifier:latest .
-docker run -p 8081:8081 --rm trig_verifier:latest
+docker run -p 5000:5000 --rm trig_verifier:latest
 ```
 
-Open http://localhost:8081
+Open http://localhost:5000 (the Python server reads PORT from the environment, default 5000).
 
 2) Deploy to Fly.io (free tier available)
 
@@ -18,10 +18,12 @@ Open http://localhost:8081
 
 Fly.io will use the Dockerfile in the repo to build and run.
 
-3) Deploy to Replit (use Dockerfile option)
+3) Deploy to Replit (use Dockerfile option or native support)
 
 - Create a new Repl, select "Import from GitHub" or upload the repo
-- In Replit, use the Dockerfile option; Replit builds and runs the container.
+- If you choose the Dockerfile template, Replit will build the container automatically.  
+  Otherwise create a `.replit` file with `run = "bash -lc \"cargo build --release && python server.py\""` and a `replit.nix` that installs Rust and Python (examples are in `DEPLOY_IPAD.md`).  Replit sets `PORT=5000` so the server will start on the correct port.
+
 
 Notes & recommended small changes
 

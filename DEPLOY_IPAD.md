@@ -77,6 +77,19 @@ The Docker image is **already built & tested**. Here are your options:
 ---
 
 ## Quick Test Commands (if using Mac/Linux desktop)
+> **Replit users:** add the following two files to the repo before importing:
+> * `.replit` – defines the run command
+> * `replit.nix` – ensures Rust and Python are installed
+>
+> ```bash
+> echo 'run = "bash -lc \"cargo build --release && python server.py\""' > .replit
+> cat <<'EOF' > replit.nix
+> { pkgs }: {
+>   deps = [ pkgs.python312Full pkgs.rustc pkgs.cargo ];
+> }
+> EOF
+> ```
+> Those files are already included below, so you can skip this step if you're cloning the repo.  If you've already created the Repl once, **stop it and hit the "Run" button again** (or reload the page) so Replit notices the new `.replit`/`replit.nix` and rebuilds the environment.
 
 If you want to test locally first:
 

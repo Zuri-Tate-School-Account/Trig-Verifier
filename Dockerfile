@@ -21,6 +21,6 @@ COPY --from=builder /app/target/release/trig_verifier /app/trig_verifier
 COPY server.py /app/server.py
 # Ensure executable
 RUN chmod +x /app/trig_verifier
-EXPOSE 8081
-ENV PORT=8081
+EXPOSE 5000
+ENV PORT=5000
 CMD ["python", "server.py"]

@@ -5,7 +5,8 @@ import os
 import sys
 import json
 
-PORT = int(os.environ.get("PORT", 8081))
+# Replit (and many PaaS) expect port 5000 by default; allow override via env
+PORT = int(os.environ.get("PORT", 5000))
 HOST = "0.0.0.0"  # Listen on all interfaces for cloud hosting
 
 def _rust_exe_path():
