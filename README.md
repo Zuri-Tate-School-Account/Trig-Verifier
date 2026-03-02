@@ -1,33 +1,48 @@
-Quick deploy (Docker + Fly.io or Replit)
+# Trig Identity Verifier
 
-1) Build & run locally with Docker
+A trigonometric identity verification engine using Rust equality saturation with a Python web frontend.
 
+## 🚀 Quick Deploy
+
+### **Option 1: Replit (Recommended - No Credit Card)**
+1. Go to https://replit.com
+2. Click **+ Create** → **Import from GitHub**
+3. Paste: `https://github.com/Zuri-Tate-School-Account/Trig-Verifier`
+4. Click **Import** then **Run**
+5. Visit the public URL (Replit provides it automatically)
+
+**Guaranteed to work** - all dependencies and config are included. See [REPLIT_DEPLOYMENT.md](REPLIT_DEPLOYMENT.md) for detailed steps.
+
+### **Option 2: Local Development**
+
+**Quick start:**
 ```bash
-# from repo root
-docker build -t trig_verifier:latest .
-docker run -p 5000:5000 --rm trig_verifier:latest
+./run.sh
+# Opens http://localhost:5000
 ```
 
-Open http://localhost:5000 (the Python server reads PORT from the environment, default 5000).
+**Or manually:**
+```bash
+cargo build --release
+python server.py
+# Server runs on http://0.0.0.0:5000
+```
 
-2) Deploy to Fly.io (free tier available)
+### **Option 3: Docker**
+```bash
+docker build -t trig_verifier:latest .
+docker run -p 5000:5000 trig_verifier:latest
+# Opens http://localhost:5000
+```
 
-- Install `flyctl` and log in: `flyctl auth login`
-- Create an app: `flyctl launch --name my-trig-verifier --no-deploy`
-- Deploy: `flyctl deploy --remote-only`
+## 📚 Project Files
 
-Fly.io will use the Dockerfile in the repo to build and run.
-
-3) Deploy to Replit (use Dockerfile option or native support)
-
-- Create a new Repl, select "Import from GitHub" or upload the repo
-- If you choose the Dockerfile template, Replit will build the container automatically.  
-  Otherwise create a `.replit` file with `run = "bash -lc \"cargo build --release && python server.py\""` and a `replit.nix` that installs Rust and Python (examples are in `DEPLOY_IPAD.md`).  Replit sets `PORT=5000` so the server will start on the correct port.
-
-
-Notes & recommended small changes
-
-- Ensure `server.py` imports `os`, `subprocess`, `http.server` and uses a relative exe path like `./trig_verifier`.
+- `.replit` - Replit build/run configuration
+- `replit.nix` - Replit dependency manifest (Rust, Python)
+- `Dockerfile` - Multi-stage container build
+- `main.rs` - Rust verification engine (egg equality saturation)
+- `server.py` - Python HTTP server frontend
+- `Cargo.toml` - Rust project config
 - If `server.py` expects the binary at `target/release/...`, prefer `./trig_verifier` for container.
 - If you want automated builds from GitHub, use GitHub Actions to build and push a Docker image to Docker Hub or the registry used by the host.
 
