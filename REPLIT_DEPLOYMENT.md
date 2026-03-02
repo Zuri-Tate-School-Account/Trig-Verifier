@@ -33,9 +33,9 @@ Your **Trig-Verifier** project is fully configured for Replit. Follow these step
    - Click the green **Run** button (top center)
    - Wait ~2-3 minutes for first build:
      - Cargo downloads dependencies
-     - Rust compiles the binary
-     - Python server starts on port 5000
-   - You'll see: `Server running on 0.0.0.0:5000`
+     - Rust compiles the binary (`target/release/trig_verifier`)
+     - Python server starts on port 3000
+   - You'll see: `Server running on 0.0.0.0:3000`
 
 **5. Access Your App**
    - Click **Web preview** button (top right)
@@ -50,25 +50,36 @@ Your project files are **production-ready**:
 
 ### ✅ `.replit` (Build/Run Config)
 ```bash
-run = "bash -lc \"cargo build --release && python server.py\""
+run = "bash startup.sh"
 language = "bash"
 ```
-- Tells Replit exactly how to build and run
-- Compiles Rust in release mode (safety & performance)
-- Starts Python HTTP server on PORT 5000
+- Tells Replit to execute the startup script
+- The script does: build Rust → start Python server on PORT 3000
+
+### ✅ `startup.sh` (Startup Script)
+```bash
+#!/bin/bash
+cargo build --release        # Compile Rust binary
+export PORT=3000
+python server.py             # Start web server
+```
+- Builds in release mode (safety & performance)
+- Sets port to 3000 (Replit standard)
+- Starts the Python HTTP server
 
 ### ✅ `replit.nix` (Dependencies)
 ```nix
 { pkgs }: {
   deps = [
-    pkgs.python312Full
+    pkgs.python312
     pkgs.rustc
     pkgs.cargo
+    pkgs.pkg-config
   ];
 }
 ```
 - Declares all required tools
-- Replit's Nix automatically provides: Python 3.12, Rust, Cargo
+- Replit's Nix automatically provides: Python 3.12, Rust, Cargo, pkg-config
 
 ### ✅ `Dockerfile` (Docker Fallback)
 - Multi-stage build: lean production image
@@ -99,7 +110,7 @@ language = "bash"
 
 ### If port is unavailable
 - **Not a problem** — Replit automatically assigns the URL
-- CHECK: Server is listening on `0.0.0.0:5000` ✅
+- CHECK: Server is listening on `0.0.0.0:3000` ✅
 
 ### If Python/Rust not found
 - **Solution**: Wait 30 seconds for `replit.nix` to provision

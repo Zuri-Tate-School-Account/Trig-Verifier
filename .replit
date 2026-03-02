@@ -1,2 +1,2 @@
-run = "bash -lc \"cargo build --release && python server.py\""
+run = "bash startup.sh"
 language = "bash"
